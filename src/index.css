@@ -2,31 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── MODERN — warm light ─── */
 :root {
-  --bg:           #060a12;
-  --surface:      #0b1520;
-  --card:         #0f1c2a;
-  --accent:       #c0ccd8;          /* steel silver-blue — replaces yellow everywhere */
-  --accent-glow:  rgba(192,204,216,0.15);
-  --accent-dim:   rgba(192,204,216,0.45);
-  --accent-border:rgba(192,204,216,0.1);
-  --cyan:         #00b8e0;
-  --cyan-glow:    rgba(0,184,224,0.15);
-  --cyan-border:  rgba(0,184,224,0.1);
-  --text:         #b0c8d8;
-  --dim:          #3c5468;
+  --bg:            #faf8f5;
+  --surface:       #f0ece5;
+  --card:          #ffffff;
+  --accent:        #c2410c;
+  --accent-glow:   rgba(194,65,12,0.07);
+  --accent-dim:    rgba(194,65,12,0.45);
+  --accent-border: rgba(194,65,12,0.12);
+  --cyan:          #0d9488;
+  --cyan-glow:     rgba(13,148,136,0.08);
+  --cyan-border:   rgba(13,148,136,0.1);
+  --text:          #44403c;
+  --dim:           #78716c;
+  --font-heading:  'DM Serif Display', Georgia, serif;
+  --font-body:     'DM Sans', Inter, sans-serif;
+}
+
+/* ─── DARK KNIGHT MODE ─── */
+[data-theme="batman"] {
+  --bg:            #060a12;
+  --surface:       #0b1520;
+  --card:          #0f1c2a;
+  --accent:        #c0ccd8;
+  --accent-glow:   rgba(192,204,216,0.15);
+  --accent-dim:    rgba(192,204,216,0.45);
+  --accent-border: rgba(192,204,216,0.1);
+  --cyan:          #00b8e0;
+  --cyan-glow:     rgba(0,184,224,0.15);
+  --cyan-border:   rgba(0,184,224,0.1);
+  --text:          #b0c8d8;
+  --dim:           #3c5468;
+  --font-heading:  'Rajdhani', sans-serif;
+  --font-body:     'Inter', sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
+body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); }
+
+/* Font classes switch with theme */
+.font-heading { font-family: var(--font-heading) !important; }
+.font-body    { font-family: var(--font-body)    !important; }
 
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
-::selection { background: rgba(192,204,216,0.15); color: #fff; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 2px; }
+::selection { background: var(--accent-glow); color: var(--text); }
 
-/* === GLOBAL SCAN LINE === */
+/* ─── SCAN LINE (batman only) ─── */
 @keyframes scanLine {
   from { transform: translateY(-100vh); }
   to   { transform: translateY(200vh); }
@@ -40,33 +65,37 @@ body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sa
   pointer-events: none; z-index: 999;
 }
 
-/* === GRID BACKGROUND === */
+/* ─── GRID BACKGROUND (batman only) ─── */
 .bat-grid {
   background-image: radial-gradient(rgba(0,184,224,0.055) 1px, transparent 1px);
   background-size: 44px 44px;
 }
 
-/* === CARD HOVER === */
+/* ─── CARD HOVER ─── */
 .card-hover {
   transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
 }
 .card-hover:hover {
-  border-color: rgba(192,204,216,0.35) !important;
-  box-shadow: 0 0 24px rgba(192,204,216,0.06), inset 0 0 20px rgba(192,204,216,0.02);
+  border-color: rgba(129,140,248,0.3) !important;
+  box-shadow: 0 0 24px var(--accent-glow), inset 0 0 20px rgba(129,140,248,0.02);
   transform: translateY(-2px);
 }
+[data-theme="batman"] .card-hover:hover {
+  border-color: rgba(192,204,216,0.35) !important;
+  box-shadow: 0 0 24px rgba(192,204,216,0.06), inset 0 0 20px rgba(192,204,216,0.02);
+}
 
-/* === HUD CORNER BRACKETS === */
+/* ─── HUD CORNER BRACKETS (batman only) ─── */
 .hud-corner {
   position: absolute; width: 20px; height: 20px;
   border-color: var(--cyan); border-style: solid; opacity: 0.4;
 }
-.hud-corner.tl { top:0; left:0;   border-width: 1px 0 0 1px; }
-.hud-corner.tr { top:0; right:0;  border-width: 1px 1px 0 0; }
+.hud-corner.tl { top:0; left:0;    border-width: 1px 0 0 1px; }
+.hud-corner.tr { top:0; right:0;   border-width: 1px 1px 0 0; }
 .hud-corner.bl { bottom:0; left:0; border-width: 0 0 1px 1px; }
-.hud-corner.br { bottom:0; right:0; border-width: 0 1px 1px 0; }
+.hud-corner.br { bottom:0; right:0;border-width: 0 1px 1px 0; }
 
-/* === NAV LINK === */
+/* ─── NAV LINK ─── */
 .nav-link { position: relative; }
 .nav-link::after {
   content: ''; position: absolute; bottom: -3px; left: 0;
@@ -75,7 +104,7 @@ body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sa
 }
 .nav-link:hover::after { width: 100%; }
 
-/* === HUD PANEL === */
+/* ─── HUD PANEL (batman only) ─── */
 .hud-panel {
   border: 1px solid var(--cyan-border);
   background: rgba(11,21,32,0.85);
@@ -83,14 +112,14 @@ body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sa
   position: relative; padding: 1rem;
 }
 
-/* === TERMINAL LABEL === */
+/* ─── TERMINAL LABEL ─── */
 .term-label {
   font-family: 'Courier New', monospace;
   font-size: 10px; letter-spacing: 0.14em;
   color: var(--cyan); opacity: 0.65;
 }
 
-/* === SECTION HEADER === */
+/* ─── SECTION HEADER ─── */
 .section-tag {
   display: flex; align-items: center; gap: 12px; margin-bottom: 4rem;
 }
@@ -102,19 +131,46 @@ body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sa
   background: linear-gradient(to right, var(--accent-border), transparent);
 }
 
-/* === BLINKING CURSOR === */
+/* ─── BLINKING CURSOR ─── */
 @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
 .blink { animation: blink 1s step-end infinite; }
 
-/* === ROTATING HUD RINGS === */
+/* ─── ROTATING HUD RINGS (batman only) ─── */
 @keyframes spinCW  { from { transform: rotate(0deg); }   to { transform: rotate(360deg);  } }
 @keyframes spinCCW { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
 .spin-cw  { animation: spinCW  26s linear infinite; transform-origin: 240px 240px; }
 .spin-ccw { animation: spinCCW 18s linear infinite; transform-origin: 240px 240px; }
 
-/* === INPUT === */
+/* ─── INPUT ─── */
 input:focus, textarea:focus {
   outline: none;
-  border-color: rgba(192,204,216,0.4) !important;
-  box-shadow: 0 0 12px rgba(192,204,216,0.06);
+  border-color: var(--accent-dim) !important;
+  box-shadow: 0 0 12px var(--accent-glow);
 }
+
+/* ─── GRADIENT TEXT UTILITY ─── */
+.gradient-name {
+  background: linear-gradient(135deg, #292524 10%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-theme="batman"] .gradient-name {
+  background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Light mode card shadow (no glow needed — box shadow instead) */
+.card-hover {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.04);
+}
+[data-theme="batman"] .card-hover {
+  box-shadow: none;
+}
+
+/* Fix: text-white is invisible on the white card bg in light mode.
+   Our rules load after @tailwind utilities so cascade order wins. */
+.text-white { color: #1c1917; }
+[data-theme="batman"] .text-white { color: #ffffff; }
