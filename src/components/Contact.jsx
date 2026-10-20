@@ -16,9 +16,16 @@ function useForm() {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       })
-      setStatus(res.ok ? 'success' : 'error')
-    } catch { setStatus('success') }
-    setTimeout(() => setStatus(null), 5000)
+      if (res.ok) {
+        setStatus('success')
+        setForm({ name: '', email: '', rating: 0, message: '' })
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
+    setTimeout(() => setStatus(null), 6000)
   }
   return { form, setForm, hover, setHover, status, update, handleSubmit }
 }
