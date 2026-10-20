@@ -1,6 +1,56 @@
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import { Cloud, Zap, Shield, Terminal } from 'lucide-react'
 import { useTheme } from '../ThemeContext'
+
+function useCountUp(target, duration = 1100, inView = false) {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    if (!inView) return
+    const start = performance.now()
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1)
+      const eased = 1 - Math.pow(1 - p, 3)
+      setCount(Math.round(eased * target))
+      if (p < 1) requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  }, [inView, target, duration])
+  return count
+}
+
+function AnimatedStat({ value, label, delay = 0 }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const numeric = parseInt(value, 10)
+  const suffix = value.replace(String(numeric), '')
+  const count = useCountUp(numeric, 1000, inView)
+  return (
+    <motion.div ref={ref} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }} transition={{ delay }}>
+      <div className="font-heading font-bold text-3xl mb-1 gradient-name">
+        {inView ? `${count}${suffix}` : `0${suffix}`}
+      </div>
+      <div className="font-body text-xs tracking-wide" style={{ color: 'var(--dim)' }}>{label}</div>
+    </motion.div>
+  )
+}
+
+function AnimatedStatBatman({ value, label, delay = 0 }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const numeric = parseInt(value, 10)
+  const suffix = value.replace(String(numeric), '')
+  const count = useCountUp(numeric, 1000, inView)
+  return (
+    <div ref={ref} style={{ borderLeft: '2px solid var(--accent)', paddingLeft: 16 }}>
+      <div className="font-heading font-bold text-3xl" style={{ color: 'var(--accent)' }}>
+        {inView ? `${count}${suffix}` : `0${suffix}`}
+      </div>
+      <div className="term-label mt-1">{label.toUpperCase()}</div>
+    </div>
+  )
+}
 
 const stats = [
   { value: '5+',  label: 'Years Experience' },
@@ -68,10 +118,9 @@ function AboutModern() {
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
             className="grid grid-cols-2 gap-px"
             style={{ border: '1px solid var(--accent-border)', background: 'var(--accent-border)' }}>
-            {stats.map(({ value, label }) => (
+            {stats.map(({ value, label }, i) => (
               <div key={label} className="p-6" style={{ background: 'var(--card)' }}>
-                <div className="font-heading font-bold text-3xl mb-1 gradient-name">{value}</div>
-                <div className="font-body text-xs tracking-wide" style={{ color: 'var(--dim)' }}>{label}</div>
+                <AnimatedStat value={value} label={label} delay={i * 0.1} />
               </div>
             ))}
           </motion.div>
@@ -108,11 +157,8 @@ function AboutBatman() {
               monitoring for SSL certificates and service-level targets.
             </p>
             <div className="grid grid-cols-2 gap-6 mt-10">
-              {stats.map(({ value, label }) => (
-                <div key={label} style={{ borderLeft: '2px solid var(--accent)', paddingLeft: 16 }}>
-                  <div className="font-heading font-bold text-3xl" style={{ color: 'var(--accent)' }}>{value}</div>
-                  <div className="term-label mt-1">{label.toUpperCase()}</div>
-                </div>
+              {stats.map(({ value, label }, i) => (
+                <AnimatedStatBatman key={label} value={value} label={label} delay={i * 0.1} />
               ))}
             </div>
           </motion.div>

@@ -19,11 +19,12 @@ export const BatLogo = ({ width = 80 }) => (
     height={Math.round(width * 0.6)} style={{ objectFit: 'contain', pointerEvents: 'none' }} />
 )
 
-const navItems = ['About', 'Experience', 'Skills', 'Contact']
-
 export default function Navbar() {
   const { theme, enterBatman, exitBatman } = useTheme()
   const isBatman = theme === 'batman'
+  const navItems = isBatman
+    ? ['About', 'Experience', 'Skills', 'Arcade', 'Contact']
+    : ['About', 'Experience', 'Skills', 'Contact']
   const [scrolled, setScrolled]   = useState(false)
   const [menuOpen, setMenuOpen]   = useState(false)
 

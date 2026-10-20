@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ThemeProvider, useTheme } from './ThemeContext'
 import LoadingScreen, { LoadingScreenModern } from './components/LoadingScreen'
+import Arcade from './components/Arcade'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -50,6 +51,7 @@ function Site() {
           <About />
           <Experience />
           <Skills />
+          {isBatman && <Arcade />}
           <Contact />
           <Footer />
         </div>

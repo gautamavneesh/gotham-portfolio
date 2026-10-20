@@ -2,13 +2,14 @@ import { motion } from 'framer-motion'
 import { useTheme } from '../ThemeContext'
 
 const categories = [
-  { title: 'Cloud & AWS',               emoji: '☁️', skills: ['EC2','Lambda','S3','IAM','CloudWatch','SNS','CloudFormation','AWS Secrets Manager','EFS','Redis'] },
+  { title: 'Cloud & AWS',               emoji: '☁️', skills: ['EC2','Lambda','S3','IAM','CloudWatch','SNS','AWS Secrets Manager','EFS','Redis'] },
   { title: 'Monitoring & Observability', emoji: '📡', skills: ['OpenSearch','Prometheus','Grafana','Thanos','New Relic','Alertmanager','CloudWatch Alarms'] },
-  { title: 'CI/CD & Infrastructure',    emoji: '⚙️', skills: ['Jenkins','Terraform','Docker','Kubernetes','GitHub Actions','JFrog Artifactory'] },
-  { title: 'AI & Automation',           emoji: '🤖', skills: ['Claude AI Skills','MCP Server','NotebookLM','AI-assisted IaC'] },
+  { title: 'CI/CD & Infrastructure',    emoji: '⚙️', skills: ['Jenkins','Terraform','Docker','Kubernetes','Helm','GitHub Actions','JFrog Artifactory','Service Mesh'] },
+  { title: 'AI & Automation',           emoji: '🤖', skills: ['Claude AI Skills','Claude Code','MCP Server','NotebookLM','Rovo'] },
   { title: 'Languages & Scripting',     emoji: '💻', skills: ['Python','Bash','JavaScript','Shell Scripting','YAML','JSON'] },
-  { title: 'API & Identity',            emoji: '🔐', skills: ['REST APIs','SOAP','Postman','AWS IAM','WSO2','OAuth 2.0','Swagger'] },
+  { title: 'API & Protocols',           emoji: '🔗', skills: ['REST APIs','SOAP','Postman','AWS IAM','Swagger'] },
   { title: 'Reliability & Process',     emoji: '🛡️', skills: ['SLO / SLI / SLA','Error Budget','Incident Mgmt','Alert Tuning','Log Aggregation'] },
+  { title: 'Collaboration',             emoji: '🤝', skills: ['Git','GitHub','Jira','Confluence'] },
 ]
 
 /* ── MODERN ── editorial list layout */
